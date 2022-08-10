@@ -1,9 +1,9 @@
 import React from "react";
 
+//Declaring functional component
 const Footer = () => {
   const date = new Date();
   const currentYear = date.getFullYear();
-  console.log(currentYear);
   return (
     <footer>
       <p>Copyright &copy; {currentYear}</p>

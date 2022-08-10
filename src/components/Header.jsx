@@ -1,5 +1,6 @@
 import React from "react";
 
+//Declaring functional component
 const Header = () => {
   return (
     <header>
