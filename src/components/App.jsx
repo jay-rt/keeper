@@ -16,8 +16,8 @@ const App = () => {
 
   const deleteNote = (id) => {
     setNotes((prevNotes) => {
-      return prevNotes.filter((note, index) => {
-        return index !== id;
+      return prevNotes.filter((note) => {
+        return note.id !== id;
       });
     });
   };
@@ -25,10 +25,10 @@ const App = () => {
     <div>
       <Header />
       <CreateArea onAdd={addNote} />
-      {notes.map((note, index) => (
+      {notes.map((note) => (
         <Note
-          key={index}
-          id={index}
+          key={note.id}
+          id={note.id}
           title={note.title}
           content={note.content}
           onDelete={deleteNote}

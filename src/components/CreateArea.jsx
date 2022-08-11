@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 //Defining a component that takes props
 const CreateArea = (props) => {
   //Declaring a new state varaible
-  const [createNote, setCreateNote] = useState({
+  const [note, setNote] = useState({
     title: "",
     content: "",
+    id: uuidv4(),
   });
 
   //handling the event that triggers the change
@@ -13,12 +15,23 @@ const CreateArea = (props) => {
     //definig 2 variable using destructuring
     const { name, value } = event.target;
     //using set function to update the state variable
-    setCreateNote((prevValue) => {
+    setNote((prevValue) => {
       return {
         ...prevValue,
         [name]: value,
       };
     });
+  };
+
+  const submitNote = (event) => {
+    props.onAdd(note);
+    setNote({
+      title: "",
+      content: "",
+      id: uuidv4(),
+    });
+    //preventing default behaviour of html form
+    event.preventDefault();
   };
 
   return (
@@ -28,28 +41,16 @@ const CreateArea = (props) => {
           onChange={handleChange}
           name="title"
           placeholder="Title"
-          value={createNote.title}
+          value={note.title}
         />
         <textarea
           onChange={handleChange}
           name="content"
           placeholder="Take a note..."
           rows="3"
-          value={createNote.content}
+          value={note.content}
         />
-        <button
-          onClick={(event) => {
-            props.onAdd(createNote);
-            //preventing default behaviour of html form
-            setCreateNote({
-              title: "",
-              content: "",
-            });
-            event.preventDefault();
-          }}
-        >
-          Add
-        </button>
+        <button onClick={submitNote}>Add</button>
       </form>
     </div>
   );
